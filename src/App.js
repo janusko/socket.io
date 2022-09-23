@@ -1,24 +1,19 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import io from 'socket.io-client';
+import Home from './views/Home';
+import ChatPage from './views/ChatPage'
+import { Routes, Route } from 'react-router-dom'
+
+
+// connecting our app to socket.io server
+const socket = io.connect('http://localhost:8000');
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Routes>
+      <Route path="/" element={<Home socket={socket} />}></Route>
+      <Route path="/chat" element={<ChatPage socket={socket} />}></Route>
+    </Routes>
   );
 }
 
